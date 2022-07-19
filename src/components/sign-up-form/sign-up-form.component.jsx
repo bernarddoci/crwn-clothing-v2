@@ -35,7 +35,6 @@ const SignUp = () => {
     try {
 
       const { user } = await createAuthUserWithEmailAndPassword(email, password)
-      console.log("❌⭕❌⭕❌⭕❌⭕ ~ file: sign-up.component.jsx ~ line 30 ~ handleSubmit ~ user", user)
       await createUserDocumentFromAuth(user, { displayName });
       resetFields();
     } catch (error) {
@@ -49,7 +48,7 @@ const SignUp = () => {
 
   return (
     <div className="sign-up-container">
-      <h2>Don't have an account!</h2>
+      <h2>I do not have a account</h2>
       <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
         <FormInput 
