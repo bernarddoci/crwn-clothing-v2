@@ -2,7 +2,12 @@ import { useContext, useEffect } from 'react';
 import { CartContext } from '../../context/cart.context';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 
-import './checkout.style.scss';
+import { 
+  CheckoutContainer,
+  CheckoutHeader,
+  HeaderBlock,
+  Total
+} from './checkout.styles';
 
 const labels = ['Product', 'Description', 'Quantity', 'Price', 'Remove'];
 
@@ -14,26 +19,26 @@ const Checkout = () => {
   }, [setIsCartOpen])
 
   return (
-    <div className="checkout-container">
-      <div className="checkout-header">
+    <CheckoutContainer>
+      <CheckoutHeader>
         {
           labels.map(label => 
-            <div key={label} className="head-block">
+            <HeaderBlock key={label}>
               <span>{label}</span>
-            </div>
+            </HeaderBlock>
           )
         }
-      </div>
+      </CheckoutHeader>
       {
       cartItems.map(cartItem => <CheckoutItem 
         key={cartItem.id} 
         cartItem={cartItem} 
         />)
       }
-      <div className="total">
+      <Total>
         <span>TOTAL: ${total}</span>
-      </div>
-    </div>
+      </Total>
+    </CheckoutContainer>
   )
 }
 
