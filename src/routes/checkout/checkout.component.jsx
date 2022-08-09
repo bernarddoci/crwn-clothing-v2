@@ -1,5 +1,9 @@
-import { useContext, useEffect } from 'react';
-import { CartContext } from '../../context/cart.context';
+import { useEffect } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setIsCartOpen } from '../../store/cart/cart.actions';
+import { selectCartItems, selectCartTotal } from '../../store/cart/cart.selector';
+
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 
 import { 
@@ -12,11 +16,14 @@ import {
 const labels = ['Product', 'Description', 'Quantity', 'Price', 'Remove'];
 
 const Checkout = () => {
-  const { setIsCartOpen, cartItems, total } = useContext(CartContext);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+  const cartTotal = useSelector(selectCartTotal);
 
   useEffect(() => {
-    setIsCartOpen(false);
-  }, [setIsCartOpen])
+    dispatch(setIsCartOpen(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <CheckoutContainer>
@@ -30,13 +37,13 @@ const Checkout = () => {
         }
       </CheckoutHeader>
       {
-      cartItems.map(cartItem => <CheckoutItem 
+      cartItems.length && cartItems.map(cartItem => <CheckoutItem 
         key={cartItem.id} 
         cartItem={cartItem} 
         />)
       }
       <Total>
-        <span>TOTAL: ${total}</span>
+        <span>TOTAL: ${cartTotal}</span>
       </Total>
     </CheckoutContainer>
   )
